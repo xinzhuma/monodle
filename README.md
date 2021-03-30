@@ -1,6 +1,6 @@
 # Delving into Localization Errors for Monocular 3D Object Detection
 
-<img src="./example.jpg" alt="vis2" style="zoom:30%;" />
+<img src="./example.jpg" alt="vis2" style="zoom:20%;" />
 
 
 **CODE WILL BE RELEASED BEFORE 19 June**
