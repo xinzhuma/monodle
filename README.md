@@ -3,7 +3,7 @@
 <img src="./example.jpg" alt="vis2" style="zoom:15%;" />
 
 
-**CODE WILL BE RELEASED BEFORE 19 June**
+**CODE WILL BE RELEASED BEFORE 19 JUNE**
 
 If you find our work useful in your research, please consider citing:
 
