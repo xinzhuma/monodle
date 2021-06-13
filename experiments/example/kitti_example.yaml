@@ -1,0 +1,45 @@
+random_seed: 444
+
+dataset:
+  type: &dataset_type 'KITTI'
+  batch_size: 32
+  use_3d_center: True
+  class_merging: False
+  use_dontcare: False
+  bbox2d_type: 'anno'   # 'proj' or 'anno'
+  meanshape: False      # use predefined anchor or not
+  writelist: ['Car']
+  random_flip: 0.5
+  random_crop: 0.5
+  scale: 0.4
+  shift: 0.1
+
+model:
+  type: 'centernet3d'
+  backbone: 'dla34'
+  neck: 'DLAUp'
+  num_class: 3
+
+optimizer:
+  type: 'adam'
+  lr: 0.00125
+  weight_decay: 0.00001
+
+lr_scheduler:
+  warmup: True  # 5 epoches, cosine warmup, init_lir=0.00001 in default
+  decay_rate: 0.1
+  decay_list: [90, 120]
+
+trainer:
+  max_epoch: 140
+  gpu_ids: 0, 1
+  save_frequency: 10 # checkpoint save interval (in epoch)
+  # resume_model: 'checkpoints/checkpoint_epoch_70.pth'
+
+
+tester:
+  type: *dataset_type
+  mode: single   # 'single' or 'all'
+  checkpoint: 'checkpoints/checkpoint_epoch_140.pth'  # for 'single' mode
+  checkpoints_dir: 'checkpoints'  # for 'all' model
+  threshold: 0.2  # confidence filter
