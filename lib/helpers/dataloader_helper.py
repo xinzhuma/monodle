@@ -10,8 +10,6 @@ def my_worker_init_fn(worker_id):
 
 
 def build_dataloader(cfg, workers=4):
-    assert cfg['type'] in ['KITTI', 'nuScenes'], "%s dataset is not supported" % cfg['type']
-
     # perpare dataset
     if cfg['type'] == 'KITTI':
         train_set = KITTI_Dataset(split='train', cfg=cfg)
