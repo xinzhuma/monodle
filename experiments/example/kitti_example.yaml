@@ -2,7 +2,7 @@ random_seed: 444
 
 dataset:
   type: &dataset_type 'KITTI'
-  batch_size: 32
+  batch_size: 16
   use_3d_center: True
   class_merging: False
   use_dontcare: False

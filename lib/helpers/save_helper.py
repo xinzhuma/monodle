@@ -13,7 +13,7 @@ def model_state_to_cpu(model_state):
 def get_checkpoint_state(model=None, optimizer=None, epoch=None):
     optim_state = optimizer.state_dict() if optimizer is not None else None
     if model is not None:
-        if isinstance(model, nn.parallel.DistributedDataParallel):
+        if isinstance(model, torch.nn.DataParallel):
             model_state = model_state_to_cpu(model.module.state_dict())
         else:
             model_state = model.state_dict()

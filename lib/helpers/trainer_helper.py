@@ -87,8 +87,6 @@ class Trainer(object):
 
     def train_one_epoch(self):
         self.model.train()
-        self.stats['train'] = {}  # reset stats dict
-
         progress_bar = tqdm.tqdm(total=len(self.train_loader), leave=(self.epoch+1 == self.cfg['max_epoch']), desc='iters')
         for batch_idx, (inputs, targets, _) in enumerate(self.train_loader):
             inputs = inputs.to(self.device)
