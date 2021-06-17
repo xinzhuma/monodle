@@ -23,14 +23,14 @@ def build_dataloader(cfg, workers=4):
                               num_workers=workers,
                               worker_init_fn=my_worker_init_fn,
                               shuffle=True,
-                              pin_memory=True,
+                              pin_memory=False,
                               drop_last=True)
     test_loader = DataLoader(dataset=test_set,
                              batch_size=cfg['batch_size'],
                              num_workers=workers,
                              worker_init_fn=my_worker_init_fn,
                              shuffle=False,
-                             pin_memory=True,
+                             pin_memory=False,
                              drop_last=False)
 
     return train_loader, test_loader
