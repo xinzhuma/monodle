@@ -63,7 +63,7 @@ Move to the workplace and train the network:
  cd experiments/example
  python ../../tools/train_val.py --config config_patchnet.yaml
 ```
-The model will be evaluated automatically if the training completed. If you only want evaluate your trained model (or the provided [pretrained model](https://drive.google.com/file/d/1MyTIcFYRFlvrOhpujZ6pjGd6f-4ZZ4bY/view?usp=sharing)) , you can modify the test part configuration in the .yaml file and use the following command:
+The model will be evaluated automatically if the training completed. If you only want evaluate your trained model (or the provided [pretrained model](https://drive.google.com/file/d/1jaGdvu_XFn5woX0eJ5I2R6wIcBLVMJV6/view?usp=sharing)) , you can modify the test part configuration in the .yaml file and use the following command:
 
 ```sh
 python ../../tools/train_val.py --config config_patchnet.yaml --e
