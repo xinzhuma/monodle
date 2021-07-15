@@ -73,7 +73,7 @@ def compute_offset3d_loss(input, target):
 def compute_size3d_loss(input, target):
     size3d_input = extract_input_from_tensor(input['size_3d'], target['indices'], target['mask_3d'])
     size3d_target = extract_target_from_tensor(target['size_3d'], target['mask_3d'])
-    size3d_loss = dim_aware_l1_loss(size3d_input, size3d_target, size3d_input)
+    size3d_loss = dim_aware_l1_loss(size3d_input, size3d_target, size3d_target)
     return size3d_loss
 
 

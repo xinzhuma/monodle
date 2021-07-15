@@ -46,6 +46,8 @@ def decode_detections(dets, info, calibs, cls_mean_size, threshold):
             alpha = get_heading_angle(dets[i, j, 7:31])
             ry = calibs[i].alpha2ry(alpha, x3d)
 
+            score = score * dets[i, j, -1]
+
             ##### generate 2d bbox using 3d bbox
             # h, w, l = dimensions
             # x_corners = [l / 2, l / 2, -l / 2, -l / 2, l / 2, l / 2, -l / 2, -l / 2]
@@ -70,6 +72,7 @@ def extract_dets_from_outputs(outputs, K=50):
     heatmap = outputs['heatmap']
     heading = outputs['heading']
     depth = outputs['depth'][:, 0:1, :, :]
+    sigma = outputs['depth'][:, 1:2, :, :]
     size_3d = outputs['size_3d']
     offset_3d = outputs['offset_3d']
     size_2d = outputs['size_2d']
@@ -77,6 +80,7 @@ def extract_dets_from_outputs(outputs, K=50):
 
     heatmap= torch.clamp(heatmap.sigmoid_(), min=1e-4, max=1 - 1e-4)
     depth = 1. / (depth.sigmoid() + 1e-6) - 1.
+    sigma = torch.exp(-sigma)
 
     batch, channel, height, width = heatmap.size() # get shape
 
@@ -98,6 +102,8 @@ def extract_dets_from_outputs(outputs, K=50):
     heading = heading.view(batch, K, 24)
     depth = _transpose_and_gather_feat(depth, inds)
     depth = depth.view(batch, K, 1)
+    sigma = _transpose_and_gather_feat(sigma, inds)
+    sigma = sigma.view(batch, K, 1)
     size_3d = _transpose_and_gather_feat(size_3d, inds)
     size_3d = size_3d.view(batch, K, 3)
     cls_ids = cls_ids.view(batch, K, 1).float()
@@ -112,7 +118,7 @@ def extract_dets_from_outputs(outputs, K=50):
     size_2d = _transpose_and_gather_feat(size_2d, inds)
     size_2d = size_2d.view(batch, K, 2)
 
-    detections = torch.cat([cls_ids, scores, xs2d, ys2d, size_2d, depth, heading, size_3d, xs3d, ys3d], dim=2)
+    detections = torch.cat([cls_ids, scores, xs2d, ys2d, size_2d, depth, heading, size_3d, xs3d, ys3d, sigma], dim=2)
 
     return detections
 
