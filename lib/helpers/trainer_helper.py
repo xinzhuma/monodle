@@ -43,7 +43,7 @@ class Trainer(object):
 
         if cfg.get('resume_model', None):
             assert os.path.exists(cfg['resume_model'])
-            self.epoch = load_checkpoint(model=self.model,
+            self.epoch = load_checkpoint(model=self.model.to(self.device),
                                          optimizer=self.optimizer,
                                          filename=cfg['resume_model'],
                                          map_location=self.device,
