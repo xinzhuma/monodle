@@ -20,7 +20,7 @@ def build_optimizer(cfg_optimizer, model):
     elif cfg_optimizer['type'] == 'adam':
         optimizer = optim.Adam(parameters, lr=cfg_optimizer['lr'])
     elif cfg_optimizer['type'] == 'adamw':
-        optimizer = optim.AdamW(parameters, lr=cfg_optimizer['lr'])
+        optimizer = AdamW(parameters, lr=cfg_optimizer['lr'])
     else:
         raise NotImplementedError("%s optimizer is not supported" % cfg_optimizer['type'])
 
